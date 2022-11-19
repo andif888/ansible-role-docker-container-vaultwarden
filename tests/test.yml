@@ -1,0 +1,20 @@
+---
+- hosts: localhost
+  remote_user: root
+  vars:
+    docker_container_vaultwarden_env:
+      DOMAIN: "https://{{ docker_container_vaultwarden_name }}.{{ docker_container__base__dns_domain }}"
+      WEBSOCKET_ENABLED: "true"
+      ADMIN_TOKEN: "gwSt6bZ2Wf75gebhcyMoBUTzGBugowrn"
+      SIGNUPS_ALLOWED: "false"
+      SIGNUPS_DOMAINS_WHITELIST: "acme.org,acme.com"
+      SMTP_HOST: "mail.acme.org"
+      SMTP_FROM: "no-reply@acme.org"
+      SMTP_FROM_NAME: "ACME | Bitwarden"
+      SMTP_PORT: "465"
+      SMTP_SECURITY: "force_tls"
+      SMTP_USERNAME: "no-reply@acme.org"
+      SMTP_PASSWORD: "k7PXCC3v5TrVwpvVJ288h9iabvJemuoA"
+
+  roles:
+    - ansible-role-docker-container-vaultwarden

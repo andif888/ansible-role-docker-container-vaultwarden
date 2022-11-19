@@ -1,0 +1,52 @@
+---
+# tasks file for ansible-role-docker-container-vaultwarden
+
+- name: docker_image pull {{ docker_image_vaultwarden_name }}
+  community.docker.docker_image:
+    name: '{{ docker_image_vaultwarden_name }}'
+    source: pull
+    # Select platform for pulling. If not specified, will pull whatever docker prefers.
+    pull:
+      platform: amd64
+  when: 
+    - docker_image_vaultwarden_pull is defined
+
+- name: docker_network {{ docker_container_vaultwarden_name }}
+  community.docker.docker_network:
+    name: "{{ docker_network_vaultwarden_name }}"
+    driver: "{{ docker_network_vaultwarden_driver | default('bridge') }}"
+    attachable: "{{ docker_network_vaultwarden_attachable | default('yes') }}"
+    enable_ipv6: "{{ docker_network_vaultwarden_enable_ipv6 | default('no') }}"
+    internal: "{{ docker_network_vaultwarden_internal | default('no') }}"
+    state: present
+
+
+- name: docker_container {{ docker_container_vaultwarden_name }}
+  community.docker.docker_container:
+    name: "{{ docker_container_vaultwarden_name }}"
+    image: "{{ docker_container_vaultwarden_image }}"
+    state: "{{ docker_container_vaultwarden_state | default('started') }}"
+    recreate: "{{ docker_container_vaultwarden_recreate | default('no') }}"
+    restart: "{{ docker_container_vaultwarden_restart | default('no') }}"
+    restart_policy: "{{ docker_container_vaultwarden_restart_policy | default('always') }}"
+    container_default_behavior: no_defaults
+    auto_remove: "{{ docker_container_vaultwarden_auto_remove | default('no') }}"
+    detach: "{{ docker_container_vaultwarden_detach | default('yes') }}"
+    init: "{{ docker_container_vaultwarden_init | default('no') }}"
+    interactive: "{{ docker_container_vaultwarden_interactive | default('no') }}"
+    keep_volumes: "{{ docker_container_vaultwarden_keep_volumes | default('yes') }}"
+    memory: "{{ docker_container_vaultwarden_memory | default('0') }}"
+    paused: "{{ docker_container_vaultwarden_paused | default('no') }}"
+    privileged: "{{ docker_container_vaultwarden_privileged | default('no') }}"
+    read_only: "{{ docker_container_vaultwarden_read_only | default('no') }}"
+    tty: "{{ docker_container_vaultwarden_tty | default('no') }}"
+    env_file: "{{ docker_container_vaultwarden_env_file | default(omit) }}"
+    env: "{{ docker_container_vaultwarden_env | default(omit) }}"
+    volumes: "{{ docker_container_vaultwarden_volumes | default(omit) }}"
+    labels: "{{ docker_container_vaultwarden_labels | default(omit) }}"
+    networks_cli_compatible: "{{ docker_container_vaultwarden_networks_cli_compatible | default('yes') }}"
+    network_mode: "{{ docker_network_vaultwarden_name }}"
+    pull: "{{ docker_container_vaultwarden_pull | default('no') }}"
+    purge_networks: "{{ docker_container_vaultwarden_purge_networks | default('yes') }}"
+    networks: "{{ docker_container_vaultwarden_networks }}"
+    published_ports: "{{ docker_container_vaultwarden_ports | default(omit) }}"
