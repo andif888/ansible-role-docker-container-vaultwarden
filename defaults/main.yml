@@ -72,6 +72,15 @@ docker_container_vaultwarden_ports:
   - "3012:3012"
   - "80:80"
 
+# @var docker_container_vaultwarden_comparisons:description: >
+# Allows to specify how properties of existing containers are compared with module options 
+# to decide whether the container should be recreated / updated or not.
+# @end
+docker_container_vaultwarden_comparisons:
+  image: strict
+  env: strict
+  volumes: strict
+
 # docker_container_vaultwarden_auto_remove: no
 # docker_container_vaultwarden_detach: yes
 # docker_container_vaultwarden_env_file: "{{ docker_container_vaultwarden_volume_dir }}/.env"
@@ -82,7 +91,6 @@ docker_container_vaultwarden_ports:
 # docker_container_vaultwarden_paused: no
 # docker_container_vaultwarden_privileged: no
 # docker_container_vaultwarden_pull: no
-# docker_container_vaultwarden_purge_networks: yes
 # docker_container_vaultwarden_read_only: no
 # docker_container_vaultwarden_recreate: no
 # docker_container_vaultwarden_restart: no
