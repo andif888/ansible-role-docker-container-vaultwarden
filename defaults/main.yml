@@ -9,7 +9,7 @@
 docker_image_vaultwarden_name: "vaultwarden/server:latest"
 
 # @var docker_image_vaultwarden_pull:description: Indicate to always pull the docker image.
-docker_image_vaultwarden_pull: no
+docker_image_vaultwarden_pull: false
 
 # ----------------
 # Docker container
